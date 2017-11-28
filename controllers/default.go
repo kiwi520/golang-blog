@@ -18,6 +18,6 @@ func (c *MainController) Get() {
 }
 
 func (this *UserController) Get() {
-	this.TplName = "layout/layout.tpl"
-	//this.Layout = "layout/layout.tpl"
+	this.TplName = "layout/layout.html"
+	//this.Layout = "layout/layout.html"
 }

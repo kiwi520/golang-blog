@@ -18,6 +18,6 @@ func (this *IndexController) Get() {
 	this.Data["HtmlHead"]="header"
 	this.Data["LayoutContent"]="LayoutContent"
 	this.Data["SideBar"]="SideBar"
-	this.TplName = "layout/layout.tpl"
-	//this.Layout = "layout/layout.tpl"
+	this.TplName = "layout/layout.html"
+	//this.Layout = "layout/layout.html"
 }

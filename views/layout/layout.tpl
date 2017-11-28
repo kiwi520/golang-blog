@@ -11,7 +11,6 @@
 <body>
 
     <div class="container">
-        {{template "admin/header.html"}}
         {{.LayoutContent}}
     </div>
     <div>

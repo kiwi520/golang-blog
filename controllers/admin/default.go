@@ -20,7 +20,7 @@ func (this *IndexController) Get() {
 	//this.LayoutSections["SideBar"]="SideBar"
 	//this.Data["Context"] = "value"
 	//this.TplName = "layout/layout.tpl"
-	this.TplName = "admin/header.html"
-	this.Layout = "layout/layout.tpl"
+	this.TplName = "admin/content.html"
+	this.Layout = "admin/layout.tpl"
 
 }

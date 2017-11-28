@@ -7,9 +7,17 @@ import (
 type MainController struct {
 	beego.Controller
 }
+type UserController struct {
+	beego.Controller
+}
 
 func (c *MainController) Get() {
 	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
+	c.Data["Email"] = "roczhmg@gmail.com"
 	c.TplName = "index.tpl"
+}
+
+func (this *UserController) Get() {
+	this.TplName = "layout/layout.tpl"
+	//this.Layout = "layout/layout.tpl"
 }

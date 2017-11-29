@@ -7,8 +7,10 @@ package admin
  */
 import (
 	"github.com/astaxie/beego"
-	//"fmt"
 	//"bloggo/models"
+	"fmt"
+	"bloggo/models"
+	"github.com/astaxie/beego/orm"
 )
 
 type IndexController struct {
@@ -40,34 +42,18 @@ func (this *ArticleController) AddArticle() {
 	this.TplName = "admin/article/add.html"
 	this.Layout = "admin/layout.html"
 	if this.Ctx.Request.Method == "POST" {
-		//title := this.GetString("title")
-		//content := this.GetString("content")
-		////art := article{}
-		//fmt.Print(title)
-		//fmt.Print(content)
-		//this.Data["User"] = user
-		//this.Redirect("/", 302)
-		//art := models.Article{}
-		//if err := this.ParseForm(&art); err != nil {
-		//	fmt.Println(art)
-		//}else{
-		//	fmt.Println(art)
-		//}
+		art := article{}
+		Art := new(models.Article)
+		o := orm.NewOrm()
+		if err := this.ParseForm(&art); err != nil {
+			//fmt.Println(art)
+		}else{
+			Art.Title =art.Title
+			Art.Content =art.Content
+			id, err := o.Insert(&Art)
+			if err == nil {
+				fmt.Println(id)
+			}
+		}
 	}
 }
-//func (this *ArticleController) GetAddArticle() {
-//	this.TplName = "admin/article/add.html"
-//	this.Layout = "admin/layout.html"
-//}
-//
-//func (this *ArticleController) PostAddArticle() {
-//	art := article{}
-//	if err := this.ParseForm(&art); err != nil {
-//		fmt.Print(art)
-//	}
-//	//jsoninfo := this.GetString("jsoninfo")
-//	//if jsoninfo == "" {
-//	//	this.Ctx.WriteString("jsoninfo is empty")
-//	//	return
-//	//}
-//}

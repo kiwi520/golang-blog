@@ -12,5 +12,5 @@ import (
 type Article struct{
 	Id 		int
 	Title 	string
-	content string
+	Content string
 }

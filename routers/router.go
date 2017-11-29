@@ -12,13 +12,13 @@ func init() {
     //beego.Router("/", &controllers.MainController{})
 	beego.Router("/user", &controllers.UserController{})
 	beego.Router("/index", &index.IndexController{})
-	beego.Router("/admin", &admin.IndexController{})
-
-
-	ns :=
-		beego.NewNamespace("/go",
-			beego.NSRouter("/ss", &controllers.MainController{}),
+	admin :=
+		beego.NewNamespace("/admin",
+			beego.NSRouter("/", &admin.IndexController{}),
+			beego.NSNamespace("/article",
+				beego.NSRouter("/add", &admin.ArticleController{}, "get:AddArticle;post:AddArticle"),
+			),
 		)
 	//注册 namespace
-	beego.AddNamespace(ns)
+	beego.AddNamespace(admin)
 }

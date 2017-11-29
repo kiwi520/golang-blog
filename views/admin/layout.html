@@ -16,7 +16,7 @@
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <a class="navbar-brand" href="#">
-                            <img alt="Brand" src="...">
+                            首页
                         </a>
                     </div>
                 </div>
@@ -29,15 +29,19 @@
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion"
                                href="#collapseOne">
-                                用户管理
+                                文章管理
                             </a>
                         </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                            vice lomo.
+                            <a href="/admin/article/list">文章列表</a>
+                        </div>
+                        <div class="panel-body">
+                            <a href="/admin/article/add">添加文章</a>
+                        </div>
+                        <div class="panel-body">
+                            <a href="">文章编辑</a>
                         </div>
                     </div>
                 </div>
@@ -46,38 +50,21 @@
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion"
                                href="#collapseTwo">
-                                文章管理
+                                评论管理
                             </a>
                         </h4>
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
-                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                            vice lomo.
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseThree">
-                                点击我进行展开，再次点击我进行折叠。第 3 部分
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                            cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-                            vice lomo.
+                            <a href="">评论列表</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-9">.col-md-9</div>
+        <div class="col-md-9">
+        {{.LayoutContent}}
+        </div>
     </div>
 </div>
 

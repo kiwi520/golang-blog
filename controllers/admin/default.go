@@ -7,8 +7,8 @@ package admin
  */
 import (
 	"github.com/astaxie/beego"
-	"fmt"
-	"bloggo/models"
+	//"fmt"
+	//"bloggo/models"
 )
 
 type IndexController struct {
@@ -47,12 +47,12 @@ func (this *ArticleController) AddArticle() {
 		//fmt.Print(content)
 		//this.Data["User"] = user
 		//this.Redirect("/", 302)
-		art := models.Article{}
-		if err := this.ParseForm(&art); err != nil {
-			//fmt.Println(art)
-		}else{
-			fmt.Println(art)
-		}
+		//art := models.Article{}
+		//if err := this.ParseForm(&art); err != nil {
+		//	fmt.Println(art)
+		//}else{
+		//	fmt.Println(art)
+		//}
 	}
 }
 //func (this *ArticleController) GetAddArticle() {

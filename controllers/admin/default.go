@@ -7,10 +7,9 @@ package admin
  */
 import (
 	"github.com/astaxie/beego"
-	//"bloggo/models"
-	"fmt"
 	"bloggo/models"
 	"github.com/astaxie/beego/orm"
+	"github.com/cihub/seelog"
 )
 
 type IndexController struct {
@@ -46,13 +45,13 @@ func (this *ArticleController) AddArticle() {
 		Art := new(models.Article)
 		o := orm.NewOrm()
 		if err := this.ParseForm(&art); err != nil {
-			//fmt.Println(art)
+			seelog.Error("文章添加失败")
 		}else{
 			Art.Title =art.Title
 			Art.Content =art.Content
-			id, err := o.Insert(&Art)
+			_, err := o.Insert(Art)
 			if err == nil {
-				fmt.Println(id)
+				seelog.Info("文章添加成功")
 			}
 		}
 	}

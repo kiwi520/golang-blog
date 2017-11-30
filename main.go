@@ -29,9 +29,6 @@ func init() {
 
 	defer seelog.Flush()
 
-	seelog.Error("seelog error")
-	seelog.Info("seelog info")
-	seelog.Debug("seelog debug")
 }
 
 func main() {

@@ -9,9 +9,11 @@
         .system-message{ width:500px;height:100px; margin:auto;border:6px solid #999;text-align:center; position:relative;top:50px;}
         .system-message legend{font-size:24px;font-weight:bold;color:#999;margin:auto;width:100px;}
         .system-message h1{ font-size: 100px; font-weight: normal; line-height: 120px; margin-bottom: 12px; }
-        .system-message .jump{ padding-right:10px;height:25px;line-height:25px;font-size:14px;position:absolute;bottom:0px;left:0px;background-color:#e6e6e1 ; display:block;width:490px;text-align:right;}
-        .system-message .jump a{ color: #333;}
-        .system-message .success,.system-message .error{ line-height: 1.8em; font-size: 15px }
+        .system-message .jump{ padding: 0 20px;height:25px;line-height:25px;font-size:14px;position:absolute;bottom:0px;left:0px;background-color:#eeeeee ; display:block;width:490px;text-align:right;}
+        .system-message .jump a{ padding-right:10px; color: #333;}
+        .system-message .success,.system-message .error{ line-height: 1.8em; font-size: 15px;}
+        .system-message .success{ color: green;font-weight: bold;}
+        .system-message .error{ color: red;font-weight: bold;}
         .system-message .detail{ font-size: 12px; line-height: 20px; margin-top: 12px; display:none}
     </style>
 </head>
@@ -21,15 +23,15 @@
     <div style="text-align:left;padding-left:10px;height:75px;width:490px;  ">
 
     {{if .mess.type}}
-        <p class="success">恭喜^_^!~{{.mess.msg}}</p>
+        <p class="success">主人,操作成功,跳转中!!! {{.mess.msg}}</p>
     {{else}}
-        <p class="error">Sorry!~{{.mess.msg}}</p>
+        <p class="error">主人,出错了,请重试!!! {{.mess.msg}}</p>
     {{end}}
         <p class="detail"></p>
 
     </div>
     <p class="jump">
-        页面自动 <a id="href" href="{{.mess.url}}">跳转</a> 等待时间： <b id="wait">{{.mess.wait}}</b>
+        页面自动 <a id="href" href="{{.mess.url}}">跳转</a> 等待时间： <b id="wait">{{.mess.wait}}</b> 秒
     </p>
 </fieldset>
 <div id="myurl" style="display:none;">{{.mess.url}}</div>

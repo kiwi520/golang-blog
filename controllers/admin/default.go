@@ -9,6 +9,7 @@ import (
 	"bloggo/models"
 	"github.com/astaxie/beego/orm"
 	"github.com/cihub/seelog"
+	"strconv"
 )
 
 
@@ -66,4 +67,48 @@ func (this *ArticleController) AddArticle() {
 			}
 		}
 	}
+}
+
+/**
+文章列表
+ */
+func (this *ArticleController) ListArticle()  {
+	o := orm.NewOrm()
+	var info []models.Article
+	nums,err :=o.QueryTable("article").All(&info)
+	if err ==nil && nums >0 {
+		this.Data["Total"] = len(info)
+		this.Data["Pages"] = info
+
+	}else{
+		this.Data["Total"] = 0
+		this.Data["Pages"] = 0
+	}
+	this.TplName = "admin/article/list.html"
+	this.Layout = "admin/layout.html"
+}
+
+
+/**
+文章详情
+ */
+func (this *ArticleController) GetDetail()  {
+
+	id := this.Ctx.Input.Param(":id")
+	intid, err := strconv.Atoi(id)
+	if err ==nil && intid >0{
+		o := orm.NewOrm()
+		var info []models.Article
+		nums,err :=o.QueryTable("article").Filter("id",intid).All(&info)
+		if err ==nil && nums >0 {
+			this.Data["Total"] = len(info)
+			this.Data["Pages"] = info
+
+		}else{
+			this.Data["Total"] = 0
+			this.Data["Pages"] = 0
+		}
+	}
+	this.TplName = "admin/article/detail.html"
+	this.Layout = "admin/layout.html"
 }

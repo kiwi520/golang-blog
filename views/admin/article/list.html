@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+{{if .Total}}
+    <table class="table table-hover">
+        <caption>悬停表格布局</caption>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>创建时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range  $v := .Pages}}
+        <tr>
+            <td>{{$v.Id}}</td>
+            <td>{{$v.Title}}</td>
+            <td>560001</td>
+            <td><a href="">看文章</a></td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+{{else}}
+    没有数据
+{{end}}
+</div>
+</body>
+</html>

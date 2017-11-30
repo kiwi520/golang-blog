@@ -10,7 +10,7 @@ import (
  * Create by hu
  */
 type Article struct{
-	Id 		int
-	Title 	string
-	Content string
+	Id 		int  `orm:"auto";form:"-"`
+	Title 	string	`form:"title"`
+	Content string	 `form:"content"`
 }

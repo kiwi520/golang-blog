@@ -10,6 +10,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/cihub/seelog"
 	"strconv"
+	//"fmt"
 )
 
 
@@ -35,11 +36,6 @@ func (this *SuccessController) Get() {
 * 首页
  */
 func (this *IndexController) Get() {
-	//this.LayoutSections["HtmlHead"]="header"
-	//this.LayoutSections["LayoutContent"]="admin/welcome.html"
-	//this.LayoutSections["SideBar"]="SideBar"
-	//this.Data["Context"] = "value"
-	//this.TplName = "layout/layout.html"
 	this.TplName = "admin/welcome.html"
 	this.Layout = "admin/layout.html"
 
@@ -92,7 +88,7 @@ func (this *ArticleController) ListArticle()  {
 /**
 文章详情
  */
-func (this *ArticleController) GetDetail()  {
+func (this *ArticleController) GetDetailArticle()  {
 
 	id := this.Ctx.Input.Param(":id")
 	intid, err := strconv.Atoi(id)
@@ -101,8 +97,9 @@ func (this *ArticleController) GetDetail()  {
 		var info []models.Article
 		nums,err :=o.QueryTable("article").Filter("id",intid).All(&info)
 		if err ==nil && nums >0 {
+			//fmt.Println(info[0].Title)
 			this.Data["Total"] = len(info)
-			this.Data["Pages"] = info
+			this.Data["Pages"] = info[0]
 
 		}else{
 			this.Data["Total"] = 0
@@ -111,4 +108,52 @@ func (this *ArticleController) GetDetail()  {
 	}
 	this.TplName = "admin/article/detail.html"
 	this.Layout = "admin/layout.html"
+}
+
+func (this *ArticleController) UpdateArticle()  {
+
+
+	if this.Ctx.Request.Method == "GET" {
+		id := this.Ctx.Input.Param(":id")
+		intid, err := strconv.Atoi(id)
+		if err ==nil && intid >0{
+			o := orm.NewOrm()
+			var info []models.Article
+			nums,err :=o.QueryTable("article").Filter("id",intid).All(&info)
+			if err ==nil && nums >0 {
+				this.Data["Total"] = len(info)
+				this.Data["Pages"] = info[0]
+
+			}else{
+				this.Data["Total"] = 0
+				this.Data["Pages"] = 0
+			}
+
+			//this.TplName = "admin/article/update.html"
+			//this.Layout = "admin/layout.html"
+		}
+	} else if this.Ctx.Request.Method == "POST" {
+		articleid := this.GetString("articleid")
+		title := this.GetString("title")
+		content := this.GetString("content")
+		if articleid != "" && title !="" && content !="" {
+			o := orm.NewOrm()
+			num, err := o.QueryTable("article").Filter("id", articleid).Update(orm.Params{
+				"title": title,
+				"content": content,
+			})
+			if err ==nil &&num >0{
+						seelog.Info("文章添加成功")
+						this.Success("提交成功","",1)
+			}else{
+				this.Error("提交失败","",2)
+			}
+		}
+
+	}
+
+
+	this.TplName = "admin/article/update.html"
+	this.Layout = "admin/layout.html"
+
 }

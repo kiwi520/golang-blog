@@ -1,20 +1,21 @@
 <ol class="breadcrumb">
     <li><a href="#">后台</a></li>
     <li><a href="#">文章</a></li>
-    <li class="active">添加</li>
+    <li class="active">修改文章</li>
 </ol>
-<form id="article" class="form-horizontal" action="/admin/article/add" method="post">
+<form id="article" class="form-horizontal" action="/admin/article/update" method="post">
 {{ .xsrfdata }}
+    <input type="hidden" name="articleid" value="{{.Pages.Id}}">
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">文章标题</label>
         <div class="col-sm-10">
-            <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="文章标题">
+            <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="文章标题" value="{{.Pages.Title}}" readonly="readonly">
         </div>
     </div>
     <div class="form-group">
         <label for="textarea1" class="col-sm-2 control-label">文章内容</label>
         <div class="col-sm-10">
-            <textarea class="form-control" name="content" id="textarea1" placeholder="文章内容" rows="3"></textarea>
+            <textarea class="form-control" name="content" id="textarea1" placeholder="文章内容" rows="3">{{.Pages.Content}}</textarea>
         </div>
     </div>
     <div class="form-group">

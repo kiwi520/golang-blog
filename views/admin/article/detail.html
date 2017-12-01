@@ -5,7 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<div>
+<div class="article">
+{{if .Total}}
+    <h3>
+        {{.Pages.Title}}
+    </h3>
+    <p>
+        {{.Pages.Content}}
+    </p>
+{{else}}
+    没有数据
+{{end}}
 
 </div>
 </body>

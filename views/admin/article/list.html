@@ -22,7 +22,8 @@
             <td>{{$v.Id}}</td>
             <td>{{$v.Title}}</td>
             <td>560001</td>
-            <td><a href="">看文章</a></td>
+            <td><a href="/admin/article/detail/{{$v.Id}}">查看文章</a></td>
+            <td><a href="/admin/article/update/{{$v.Id}}">编辑文章</a></td>
         </tr>
         {{end}}
         </tbody>

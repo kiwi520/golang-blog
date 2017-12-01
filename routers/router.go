@@ -19,7 +19,9 @@ func init() {
 			beego.NSNamespace("/article",
 				beego.NSRouter("/list", &admin.ArticleController{}, "get:ListArticle"),
 				beego.NSRouter("/add", &admin.ArticleController{}, "get:AddArticle;post:AddArticle"),
-				beego.NSRouter("/detail/:id", &admin.ArticleController{}, "get:GetDetail"),
+				beego.NSRouter("/detail/:id", &admin.ArticleController{}, "get:GetDetailArticle"),
+				beego.NSRouter("/update/?:id", &admin.ArticleController{}, "get:UpdateArticle;post:UpdateArticle"),
+				//beego.NSRouter("/update/", &admin.ArticleController{}, "post:UpdateArticle"),
 			),
 		)
 	//注册 namespace

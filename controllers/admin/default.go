@@ -11,6 +11,11 @@ import (
 	"github.com/cihub/seelog"
 	"strconv"
 	//"fmt"
+	"net/http"
+	//"fmt"
+	"os"
+	"io"
+	"log"
 )
 
 
@@ -23,6 +28,9 @@ type IndexController struct {
 	BaseController
 }
 type ArticleController struct {
+	BaseController
+}
+type UploadController struct {
 	BaseController
 }
 
@@ -156,4 +164,33 @@ func (this *ArticleController) UpdateArticle()  {
 	this.TplName = "admin/article/update.html"
 	this.Layout = "admin/layout.html"
 
+}
+
+
+/**
+*上传图片
+ */
+func (this *UploadController) PostUpload(w http.ResponseWriter, r *http.Request)  {
+	//设置内存大小
+	r.ParseMultipartForm(32 << 20);
+	//获取上传的文件组
+	files := r.MultipartForm.File["file"];
+	len := len(files);
+	for i := 0; i < len; i++ {
+		//打开上传文件
+		file, err := files[i].Open();
+		defer file.Close();
+		if err != nil {
+			log.Fatal(err);
+		}
+		//创建上传目录
+		os.Mkdir("./upload", os.ModePerm);
+		//创建上传文件
+		cur, err := os.Create("/static/upload/" + files[i].Filename);
+		defer cur.Close();
+		if err != nil {
+			log.Fatal(err);
+		}
+		io.Copy(cur, file);
+	}
 }

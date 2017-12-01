@@ -29,8 +29,12 @@ func init() {
 
 	defer seelog.Flush()
 
+	beego.SetStaticPath("/static","static")
+	beego.SetStaticPath("/ueditor","static/ueditor")
+	"https://github.com/3xxx/UEditor-golang"
 }
 
 func main() {
+
 	beego.Run()
 }

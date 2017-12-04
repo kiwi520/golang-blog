@@ -45,12 +45,11 @@ func (c *UeditorController) Ueditor() {
 		tt := []byte(src)
 		var r interface{}
 		json.Unmarshal(tt, &r) //这个byte要解码/
-		//c.Ctx.WriteString("ok")
 		c.Data["json"] = r
 		c.ServeJSON()
 	case "uploadimage", "uploadfile", "uploadvideo":
 		number := c.GetString("number")
-		name := c.GetString("name")
+		//name := c.GetString("name")
 		err := os.MkdirAll("static/upload/"+ fileName +"/", 0777)  //给目录符权限
 		if err != nil {
 			beego.Error(err)
@@ -61,14 +60,12 @@ func (c *UeditorController) Ueditor() {
 		if err != nil {
 			beego.Error(err)
 		}
-		path1 := "static/upload/"+ fileName  + number+ "/" + h.Filename
-		err = c.SaveToFile("upfile", path1) //.Join("attachment", attachment)) //存文件    WaterMark(path)    //给文件加水印
+		pathPath := "static/upload/"+ fileName  + number+ "/" + h.Filename
+		err = c.SaveToFile("upfile", pathPath)
 		if err != nil {
 			beego.Error(err)
 		}
-		c.Data["json"] = map[string]interface{}{"state": "SUCCESS", "url": "/static/upload/"+ fileName  + number + name + "/" + h.Filename, "title": h.Filename, "original": h.Filename}
+		c.Data["json"] = map[string]interface{}{"state": "SUCCESS", "url": "/static/upload/"+ fileName  + number +"/" + h.Filename, "title": h.Filename, "original": h.Filename}
 		c.ServeJSON()
 	}
-
-	c.Ctx.WriteString("no")
 }

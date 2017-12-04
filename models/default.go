@@ -12,5 +12,6 @@ import (
 type Article struct{
 	Id 		int  `orm:"auto";form:"-"`
 	Title 	string	`form:"title"`
+	Img 	string	`form:"img"`
 	Content string	 `form:"content"`
 }

@@ -22,7 +22,7 @@ func init() {
 	logger, err := seelog.LoggerFromConfigAsFile("conf/seelog-dev-main.xml")
 
 	if err != nil {
-		seelog.Critical("err parsing config log file", err)
+		seelog.Critical("日志配置有问题:", err)
 		return
 	}
 	seelog.ReplaceLogger(logger)
@@ -31,7 +31,7 @@ func init() {
 
 	beego.SetStaticPath("/static","static")
 	beego.SetStaticPath("/ueditor","static/ueditor")
-	"https://github.com/3xxx/UEditor-golang"
+
 }
 
 func main() {

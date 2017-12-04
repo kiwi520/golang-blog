@@ -12,6 +12,8 @@ func init() {
     //beego.Router("/", &controllers.MainController{})
 	beego.Router("/user", &controllers.UserController{})
 	beego.Router("/index", &index.IndexController{})
+	beego.Router("/ueidtor", &controllers.UeditorController{},"*:Ueditor")
+	beego.Router("/attachment/*", &controllers.AttachController{})
 	admin :=
 		beego.NewNamespace("/admin",
 			beego.NSRouter("/", &admin.IndexController{}),

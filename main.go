@@ -11,7 +11,7 @@ import (
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	// set default database
-	orm.RegisterDataBase("default", "mysql", "homestead:secret@tcp(192.168.13.106:3306)/homestead?charset=utf8", 30)
+	orm.RegisterDataBase("default", "mysql", "homestead:secret@tcp(192.168.13.103:3306)/homestead?charset=utf8", 30)
 
 	// register model
 	orm.RegisterModel(new(models.Article))

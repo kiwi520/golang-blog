@@ -14,4 +14,5 @@ type Article struct{
 	Title 	string	`form:"title"`
 	Img 	string	`form:"img"`
 	Content string	 `form:"content"`
+	CreateTime string	 `orm:"-"form:"create_time"`
 }

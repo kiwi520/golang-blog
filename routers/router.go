@@ -6,9 +6,18 @@ import (
 	"bloggo/controllers/admin"
 	"github.com/astaxie/beego"
 	"bloggo/controllers/apis"
+	"github.com/astaxie/beego/plugins/cors"
 )
 
 func init() {
+	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
+		AllowAllOrigins: true,
+		AllowMethods:    []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:    []string{"Origin", "Authorization", "Access-Control-Allow-Origin", "Content-Type"},
+		ExposeHeaders:   []string{"Content-Length", "Access-Control-Allow-Origin"},
+	}))
+
+
 	beego.Router("/user", &controllers.UserController{})
 	beego.Router("/index", &index.IndexController{})
 

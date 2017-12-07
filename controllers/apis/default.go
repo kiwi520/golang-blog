@@ -13,6 +13,7 @@ import (
  * Create by hu
  */
 
+
 type ArticleController struct{
 	beego.Controller
 }

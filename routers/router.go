@@ -42,7 +42,8 @@ func init() {
 		beego.NewNamespace("/v1",
 			beego.NSNamespace("/article",
 				beego.NSRouter("/list", &apis.ArticleController{}, "get:ListArticle"),
-				beego.NSRouter("/detail/:id", &apis.ArticleController{}, "get:GetDetailArticle"),
+				beego.NSRouter("/latest", &apis.ArticleController{}, "get:LatestArticle"),
+				beego.NSRouter("/detaildetail/:id", &apis.ArticleController{}, "get:GetDetailArticle"),
 			),
 		)
 	//注册 API路由

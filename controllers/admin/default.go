@@ -10,7 +10,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/cihub/seelog"
 	"strconv"
-
 )
 
 
@@ -62,6 +61,7 @@ func (this *ArticleController) AddArticle() {
 				seelog.Info("文章添加成功")
 				this.Success("提交成功","/admin/success",1)
 			}else{
+				panic("文章添加失败:"+err.Error())
 				this.Error("提交失败","",2)
 			}
 		}

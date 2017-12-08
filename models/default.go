@@ -2,6 +2,8 @@ package models
 
 import (
 	//"github.com/astaxie/beego/orm"
+	//"time"
+	"time"
 )
 
 /**
@@ -14,5 +16,7 @@ type Article struct{
 	Title 	string	`form:"title"`
 	Img 	string	`form:"img"`
 	Content string	 `form:"content"`
-	CreateTime string	 `orm:"-"form:"create_time"`
+	//CreateTime string	 `orm:"type(datetime)"`
+	CreateTime time.Time `orm:"column(create_time);type(timestamp);null;auto_now_add"`
+	//Created time.Time `orm:"auto_now_add;type(datetime)"`
 }

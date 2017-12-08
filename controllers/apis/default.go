@@ -32,6 +32,19 @@ func (c *ArticleController) ListArticle (){
 	}
 }
 
+func (c *ArticleController) LatestArticle (){
+	o := orm.NewOrm()
+	var info []models.Article
+	nums,err :=o.QueryTable("article").OrderBy("-id").Limit(10).All(&info)
+	if err ==nil && nums >0 {
+		c.Data["json"] = map[string]interface{}{"status_code":200,"status_msg": "SUCCESS","total":len(info), "data":info}
+		c.ServeJSON()
+	}else{
+		c.Data["json"] = map[string]interface{}{"status_code":404,"status_msg": "no found data","total":0, "data":""}
+		c.ServeJSON()
+	}
+}
+
 func (this *ArticleController) GetDetailArticle (){
 	id := this.Ctx.Input.Param(":id")
 	intid, err := strconv.Atoi(id)

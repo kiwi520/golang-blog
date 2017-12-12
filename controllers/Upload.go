@@ -2,8 +2,10 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/muesli/smartcrop"
 	"os"
 	"fmt"
+	"image"
 )
 
 /**
@@ -27,8 +29,8 @@ func (c *UploadController) UploadImg() {
 	}
 
 	f, h, _ := c.GetFile("txt_file")                  //获取上传的文件
-	fmt.Println(h.Size)
-	//fmt.Println(f.Read)
+	//fmt.Println(h.Size)
+
 	fullpath := path + h.Filename
 	f.Close()                                          //关闭上传的文件，不然的话会出现临时文件不能清除的情况
 	c.SaveToFile("txt_file", fullpath)
@@ -37,4 +39,23 @@ func (c *UploadController) UploadImg() {
 	partname := beego.AppConfig.String("httpport")
 	c.Data["json"] =map[string]interface{}{"state": "SUCCESS","hostname":hostname,"partname":partname, "url": fullpath, "title": h.Filename, "original": h.Filename}
 	c.ServeJSON()
+}
+
+
+func cropimg (urlimg string){
+	f, _ := os.Open(urlimg)
+	img, _, _ := image.Decode(f)
+
+	analyzer := smartcrop.NewAnalyzer()
+	topCrop, _ := analyzer.FindBestCrop(img, 250, 250)
+
+	// The crop will have the requested aspect ratio, but you need to copy/scale it yourself
+	fmt.Printf("Top crop: %+v\n", topCrop)
+
+	type SubImager interface {
+		SubImage(r image.Rectangle) image.Image
+	}
+	croppedimg := img.(SubImager).SubImage(topCrop)
+
+	fmt.Println(croppedimg)
 }

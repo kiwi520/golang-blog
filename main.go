@@ -31,6 +31,8 @@ func init() {
 
 	beego.SetStaticPath("/static","static")
 	beego.SetStaticPath("/ueditor","static/ueditor")
+	beego.SetStaticPath("/markdown","static/markdown")
+	beego.SetStaticPath("/fileinput","static/bootstrap-fileinput")
 
 }
 

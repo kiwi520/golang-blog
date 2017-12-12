@@ -1,0 +1,119 @@
+<link rel="stylesheet" type="text/css" href="/markdown/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/markdown/css/bootstrap-markdown.min.css">
+<link rel="stylesheet" type="text/css" href="/markdown/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/fileinput/fileinput.min.css">
+<ol class="breadcrumb">
+    <li><a href="#">后台</a></li>
+    <li><a href="#">文章</a></li>
+    <li class="active">添加</li>
+</ol>
+
+<style type="text/css">
+    /*div{*/
+        /*width:100%;*/
+    /*}*/
+</style>
+<form id="article" class="form-horizontal" action="/admin/article/add" method="post" enctype="multipart/form-data">
+{{ .xsrfdata }}
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">文章标题</label>
+        <div class="col-sm-10">
+            <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="文章标题">
+            <input type="hidden" name="img" class="img">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">选择上传文件</label>
+        <div class="col-sm-10">
+            <input type="file" name="txt_file" id="txt_file" multiple class="file-loading" />
+        {{/*<input id="input-img" name="input-img[]"  width="128"  type="file" multiple>*/}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="textarea1" class="col-sm-2 control-label">文章内容</label>
+        <div class="col-sm-10">
+            <textarea name="content" data-provide="markdown" data-iconlibrary="fa" rows="10" id="editor"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">提交数据</button>
+        </div>
+    </div>
+</form>
+<!-- 该jquery文件必须在bootstrap.min.js之前引入 -->
+<script src="/markdown/js/jquery.min.js"></script>
+<script src="/markdown/js/bootstrap.min.js"></script>
+<script src="/markdown/js/markdown.js"></script>
+<script src="/markdown/js/to-markdown.js"></script>
+<script src="/markdown/js/bootstrap-markdown.js"></script>
+<script src="/markdown/js/bootstrap-markdown.fr.js"></script>
+<script src="/fileinput/fileinput.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.6/js/locales/zh.min.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        $("#txt_file").fileinput({
+            language: "zh",
+            allowedFileExtensions: ['jpg','png'],
+            uploadUrl:"http://localhost:8889/upload",
+            enctype:'multipart/form-data',
+            dataType:'json'
+        }).on("fileuploaded", function (e, data) {
+            var res = data.response;
+            if (res.state == "SUCCESS") {
+                alert(res.url)
+            }
+        });
+
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "TestServlet",    //请求发送到TestServlet处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(result) {
+                console.log(result.num)
+                number = result.num
+                console.log(number)
+            },
+            error : function(errorMsg) {
+                //请求失败时执行该函数
+                alert("图表请求数据失败!");
+                myChart.hideLoading();
+            }
+        });
+        $.fn.markdown.messages.zh = {
+            'Bold': "粗体",
+            'Italic': "斜体",
+            'Heading': "标题",
+            'URL/Link': "链接",
+            'Image': "图片",
+            'List': "列表",
+            'Unordered List': "无序列表",
+            'Ordered List': "有序列表",
+            'Code': "代码",
+            'Quote': "引用",
+            'Preview': "预览",
+            'strong text': "粗体",
+            'emphasized text': "强调",
+            'heading text': "标题",
+            'enter link description here': "输入链接说明",
+            'Insert Hyperlink': "URL地址",
+            'enter image description here': "输入图片说明",
+            'Insert Image Hyperlink': "图片URL地址",
+            'enter image title here': "在这里输入图片标题",
+            'list text here': "这里是列表文本",
+            'code text here': "这里输入代码",
+            'quote here': "这里输入引用文本"
+        };
+    }(jQuery));
+    $("#editor").markdown({
+        autofocus: true,
+        language: 'zh',
+    })
+    // $(document).on('ready', function() {
+    //     $("#input-b5").fileinput({showCaption: false});
+    // });
+</script>
+</body>
+</html>

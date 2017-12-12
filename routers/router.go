@@ -23,6 +23,7 @@ func init() {
 
 	//百度编辑器ueditor
 	beego.Router("/ueidtor", &controllers.UeditorController{},"*:Ueditor")
+	beego.Router("/upload", &controllers.UploadController{},"*:UploadImg")
 
 	admin :=
 		beego.NewNamespace("/admin",

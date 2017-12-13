@@ -40,7 +40,7 @@ func (c *UploadController) UploadImg() {
 	f.Close()                                          //关闭上传的文件
 	c.SaveToFile("txt_file", fullpath)
 	//存文件
-	thumbnail :=cropimg(path,h.Filename,5)
+	thumbnail :=cropimg(path,h.Filename,5,200)
 	hostname := c.Ctx.Input.Site()
 	partname := beego.AppConfig.String("httpport")
 	c.Data["json"] =map[string]interface{}{"state": "SUCCESS","hostname":hostname,"partname":partname, "url": fullpath, "thumb":thumbnail,"title": h.Filename, "original": h.Filename}
@@ -49,8 +49,13 @@ func (c *UploadController) UploadImg() {
 
 /**
 *图片缩略
+* path 原图片所存路径
+* filename 图片名
+* num 缩略比例
+* aim 最大允许缩略范围
+* aimspath 缩略图片所存路径
  */
-func cropimg (path,filename string,num int) (aimspath string){
+func cropimg (path,filename string,num int,aim int) (aimspath string){
 	//原图片路径
 	fullpath := path + filename
 
@@ -80,8 +85,18 @@ func cropimg (path,filename string,num int) (aimspath string){
 	w,h:=wh(fullpath)
 
 	//按比例截取宽高
-	resetW := w / num
-	resetH := h / num
+	resetW := 0
+	resetH := 0
+
+	//根据最大允许缩略范围进行等比例缩略宽高计算
+	for {
+		resetW = w / num
+		resetH = h / num
+		num ++
+		if resetW < aim || resetH <aim{
+			break
+		}
+	}
 
 	//缩略
 	dst :=image.NewNRGBA(image.Rect(0,0,resetW,resetH))
@@ -102,6 +117,7 @@ func cropimg (path,filename string,num int) (aimspath string){
 
 /**
 * 获取图片宽高
+* imagePath  图片路径
  */
 func wh (imagePath string) (width,height int) {
 	file, err := os.Open(imagePath)

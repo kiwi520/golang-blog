@@ -46,13 +46,13 @@
     </div>
 </form>
 <!-- 该jquery文件必须在bootstrap.min.js之前引入 -->
-<script src="/markdown/js/jquery.min.js"></script>
-<script src="/markdown/js/bootstrap.min.js"></script>
-<script src="/markdown/js/markdown.js"></script>
-<script src="/markdown/js/to-markdown.js"></script>
-<script src="/markdown/js/bootstrap-markdown.js"></script>
-<script src="/markdown/js/bootstrap-markdown.fr.js"></script>
-<script src="/fileinput/fileinput.min.js"></script>
+<script src="/markdown/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/markdown/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/markdown/js/markdown.js" type="text/javascript" charset="utf-8"></script>
+<script src="/markdown/js/to-markdown.js" type="text/javascript" charset="utf-8"></script>
+<script src="/markdown/js/bootstrap-markdown.js" type="text/javascript" charset="utf-8"></script>
+<script src="/markdown/js/bootstrap-markdown.fr.js" type="text/javascript" charset="utf-8"></script>
+<script src="/fileinput/fileinput.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.6/js/locales/zh.min.js"></script>
 <script type="text/javascript">
     (function ($) {
@@ -104,14 +104,59 @@
             'code text here': "这里输入代码",
             'quote here': "这里输入引用文本"
         };
+
+
+        var converter = new showdown.Converter(),
+                texts = $('#makeHtml').html();
+        texts = texts.replace(/&lt;/g,"<");
+        texts = texts.replace(/&gt;/g,">");
+        texts = texts.replace(/&nbsp;/g," ");
+        texts = texts.replace(/\n+/g,function(ns){
+            if(ns.length==1)
+                return '  '+ns
+            return ns
+        });
+        $('#markdown').html(converter.makeHtml(texts));
+
+
+        $("#editor").markdown({
+            autofocus: true,
+            language: 'zh',
+            // savable:true
+            // onShow: function(e){
+            // }
+            // onPreview: function(e) {
+            //     var previewContent
+            //
+            //     if (e.isDirty()) {
+            //         var originalContent = e.getContent()
+            //
+            //         previewContent = "Prepended text here..."
+            //                 + "\n"
+            //                 + originalContent
+            //                 + "\n"
+            //                 +"Apended text here..."
+            //     } else {
+            //         previewContent = "Default content"
+            //     }
+            //
+            //     return previewContent
+            // },
+            // onSave: function(e) {
+            //     alert("Saving '"+e.getContent()+"'...")
+            // },
+            // onChange: function(e){
+            //     console.log("Changed!")
+            // },
+            // onFocus: function(e) {
+            //     alert("Focus triggered!")
+            // },
+            // onBlur: function(e) {
+            //     alert("Blur triggered!")
+            // }
+        })
     }(jQuery));
-    $("#editor").markdown({
-        autofocus: true,
-        language: 'zh',
-    })
-    // $(document).on('ready', function() {
-    //     $("#input-b5").fileinput({showCaption: false});
-    // });
+
 </script>
 </body>
 </html>

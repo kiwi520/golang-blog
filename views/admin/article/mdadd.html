@@ -58,7 +58,7 @@
     (function ($) {
         $("#txt_file").fileinput({
             language: "zh",
-            allowedFileExtensions: ['jpg','png'],
+            allowedFileExtensions: ['png'],
             uploadUrl:"http://localhost:8889/upload",
             enctype:'multipart/form-data',
             dataType:'json'
@@ -67,34 +67,19 @@
             if (res.state == "SUCCESS") {
                 //添加 li
                 var lis = document.createElement("li");
+                var lis1 = document.createElement("li");
 
                 //设置 li 属性，如 id
                 // li.setAttribute("value", res.url);
 
                 lis.innerHTML = res.hostname+":"+res.partname+"/"+res.url;
-                $('#imgshow').append(lis);
+                lis1.innerHTML = res.hostname+":"+res.partname+"/"+res.thumb;
+                $('#imgshow').append(lis,lis1);
 
             }
             // console.log($(".img").value())
         });
 
-        $.ajax({
-            type : "post",
-            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-            url : "TestServlet",    //请求发送到TestServlet处
-            data : {},
-            dataType : "json",        //返回数据形式为json
-            success : function(result) {
-                console.log(result.num)
-                number = result.num
-                console.log(number)
-            },
-            error : function(errorMsg) {
-                //请求失败时执行该函数
-                alert("图表请求数据失败!");
-                myChart.hideLoading();
-            }
-        });
         $.fn.markdown.messages.zh = {
             'Bold': "粗体",
             'Italic': "斜体",

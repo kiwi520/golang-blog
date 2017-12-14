@@ -10,7 +10,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/cihub/seelog"
 	"strconv"
-	"fmt"
+	//"fmt"
 )
 
 
@@ -53,25 +53,25 @@ func (this *ArticleController) AddArticle() {
 	//this.TplName = "admin/article/add.html"//百度 Ueditor 添加文章
 	this.Layout = "admin/layout.html"
 	if this.Ctx.Request.Method == "POST" {
-
-		title :=this.GetString("title")
-		content :=this.GetString("content")
-		fmt.Println(title)
-		fmt.Println(content)
-		//art := new(models.Article)
-		//o := orm.NewOrm()
-		//if err := this.ParseForm(art); err != nil {
-		//	seelog.Error("文章添加失败")
-		//}else{
-		//	_, err := o.Insert(art)
-		//	if err == nil {
-		//		seelog.Info("文章添加成功")
-		//		this.Success("提交成功","/admin/success",1)
-		//	}else{
-		//		panic("文章添加失败:"+err.Error())
-		//		this.Error("提交失败","",2)
-		//	}
-		//}
+		//
+		//title :=this.GetString("title")
+		//content :=this.GetString("content")
+		//fmt.Println(title)
+		//fmt.Println(content)
+		art := new(models.Article)
+		o := orm.NewOrm()
+		if err := this.ParseForm(art); err != nil {
+			seelog.Error("文章添加失败")
+		}else{
+			_, err := o.Insert(art)
+			if err == nil {
+				seelog.Info("文章添加成功")
+				this.Success("提交成功","/admin/success",1)
+			}else{
+				panic("文章添加失败:"+err.Error())
+				this.Error("提交失败","",2)
+			}
+		}
 	}
 }
 

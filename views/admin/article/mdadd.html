@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/markdown/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/markdown/css/bootstrap-markdown.min.css">
+<link rel="stylesheet" type="text/css" href="/editormd/css/editormd.min.css">
+{{/*<link rel="stylesheet" type="text/css" href="/markdown/css/bootstrap-markdown.min.css">*/}}
 <link rel="stylesheet" type="text/css" href="/markdown/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/fileinput/fileinput.min.css">
 <ol class="breadcrumb">
@@ -19,7 +20,7 @@
         <label for="inputEmail3" class="col-sm-2 control-label">文章标题</label>
         <div class="col-sm-10">
             <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="文章标题">
-            <input type="hidden" name="img" class="img">
+            <input type="hidden"  id="contented">
         </div>
     </div>
     <div class="form-group">
@@ -35,12 +36,18 @@
     </div>
     <div class="form-group" >
         <label for="textarea1" class="col-sm-2 control-label">文章内容</label>
-        <div class="col-sm-10">
-            <textarea name="content" data-provide="markdown" data-iconlibrary="fa" rows="40" id="editor"></textarea>
+        <input type="hidden" name="content" id="content-input">
+        {{/*<div class="col-sm-10">*/}}
+            {{/*<textarea name="content" data-provide="markdown" data-savable="true" data-iconlibrary="fa" rows="40" id="editor"></textarea>*/}}
+        {{/*</div>*/}}
+        <div id="test-editormd" class="col-sm-10">
+            {{/*<textarea name="markdown"></textarea>*/}}
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" id="get-md-btn">Get Markdown</button>
+            <button type="button" id="get-html-btn">Get HTML</button>
             <button type="submit" class="btn btn-default">提交数据</button>
         </div>
     </div>
@@ -48,10 +55,11 @@
 <!-- 该jquery文件必须在bootstrap.min.js之前引入 -->
 <script src="/markdown/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/markdown/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="/markdown/js/markdown.js" type="text/javascript" charset="utf-8"></script>
-<script src="/markdown/js/to-markdown.js" type="text/javascript" charset="utf-8"></script>
-<script src="/markdown/js/bootstrap-markdown.js" type="text/javascript" charset="utf-8"></script>
-<script src="/markdown/js/bootstrap-markdown.fr.js" type="text/javascript" charset="utf-8"></script>
+<script src="/editormd/editormd.min.js" type="text/javascript" charset="utf-8"></script>
+{{/*<script src="/markdown/js/markdown.js" type="text/javascript" charset="utf-8"></script>*/}}
+{{/*<script src="/markdown/js/to-markdown.js" type="text/javascript" charset="utf-8"></script>*/}}
+{{/*<script src="/markdown/js/bootstrap-markdown.js" type="text/javascript" charset="utf-8"></script>*/}}
+{{/*<script src="/markdown/js/bootstrap-markdown.fr.js" type="text/javascript" charset="utf-8"></script>*/}}
 <script src="/fileinput/fileinput.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.6/js/locales/zh.min.js"></script>
 <script type="text/javascript">
@@ -80,81 +88,25 @@
             // console.log($(".img").value())
         });
 
-        $.fn.markdown.messages.zh = {
-            'Bold': "粗体",
-            'Italic': "斜体",
-            'Heading': "标题",
-            'URL/Link': "链接",
-            'Image': "图片",
-            'List': "列表",
-            'Unordered List': "无序列表",
-            'Ordered List': "有序列表",
-            'Code': "代码",
-            'Quote': "引用",
-            'Preview': "预览",
-            'strong text': "粗体",
-            'emphasized text': "强调",
-            'heading text': "标题",
-            'enter link description here': "输入链接说明",
-            'Insert Hyperlink': "URL地址",
-            'enter image description here': "输入图片说明",
-            'Insert Image Hyperlink': "图片URL地址",
-            'enter image title here': "在这里输入图片标题",
-            'list text here': "这里是列表文本",
-            'code text here': "这里输入代码",
-            'quote here': "这里输入引用文本"
-        };
-
-
-        var converter = new showdown.Converter(),
-                texts = $('#makeHtml').html();
-        texts = texts.replace(/&lt;/g,"<");
-        texts = texts.replace(/&gt;/g,">");
-        texts = texts.replace(/&nbsp;/g," ");
-        texts = texts.replace(/\n+/g,function(ns){
-            if(ns.length==1)
-                return '  '+ns
-            return ns
+        var testEditor = editormd("test-editormd", {
+            width  : "80%",
+            height : 640,
+            path   : "/editormd/lib/",
+            saveHTMLToTextarea : true
         });
-        $('#markdown').html(converter.makeHtml(texts));
 
+        $("#get-md-btn").bind('click', function(){
+            $("#content-input").val(testEditor.getMarkdown());
+        });
 
-        $("#editor").markdown({
-            autofocus: true,
-            language: 'zh',
-            // savable:true
-            // onShow: function(e){
-            // }
-            // onPreview: function(e) {
-            //     var previewContent
-            //
-            //     if (e.isDirty()) {
-            //         var originalContent = e.getContent()
-            //
-            //         previewContent = "Prepended text here..."
-            //                 + "\n"
-            //                 + originalContent
-            //                 + "\n"
-            //                 +"Apended text here..."
-            //     } else {
-            //         previewContent = "Default content"
-            //     }
-            //
-            //     return previewContent
-            // },
-            // onSave: function(e) {
-            //     alert("Saving '"+e.getContent()+"'...")
-            // },
-            // onChange: function(e){
-            //     console.log("Changed!")
-            // },
-            // onFocus: function(e) {
-            //     alert("Focus triggered!")
-            // },
-            // onBlur: function(e) {
-            //     alert("Blur triggered!")
-            // }
-        })
+        $("#get-html-btn").bind('click', function() {
+            alert(testEditor.getHTML());
+        });
+
+        testEditor.getMarkdown();       // 获取 Markdown 源码
+        testEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
+        testEditor.getPreviewedHTML();  // 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
+
     }(jQuery));
 
 </script>

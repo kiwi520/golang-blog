@@ -6,14 +6,17 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"bloggo/models"
-	//"github.com/cihub/seelog"
-	//"github.com/cihub/seelog"
 	"github.com/cihub/seelog"
 )
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	// set default database
-	orm.RegisterDataBase("default", "mysql", "homestead:secret@tcp(192.168.33.10:3306)/homestead?charset=utf8&loc=Asia%2FShanghai", 30)
+	dbaddr := beego.AppConfig.String("dbaddr")
+	dbport := beego.AppConfig.String("dbport")
+	dbuser := beego.AppConfig.String("dbuser")
+	dbname := beego.AppConfig.String("dbname")
+	dbpasswd := beego.AppConfig.String("dbpasswd")
+	orm.RegisterDataBase("default", "mysql", dbuser+":"+dbpasswd+"@tcp("+dbaddr+":"+dbport+")/"+dbname+"?charset=utf8&loc=Asia%2FShanghai", 30)
 
 	// register model
 	orm.RegisterModel(new(models.Article))

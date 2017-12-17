@@ -8,8 +8,13 @@ import (
 	"bloggo/controllers/apis"
 	"github.com/astaxie/beego/plugins/cors"
 )
+//var globalSessions *session.Manager
 
 func init() {
+	//globalSessions, _ = session.NewManager("memory", "gosessionid", 3600,"",false,"sha1","sessionidkey",3600)
+	//go globalSessions.GC()
+
+
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowAllOrigins: true,
 		AllowMethods:    []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
@@ -25,10 +30,17 @@ func init() {
 	beego.Router("/ueidtor", &controllers.UeditorController{},"*:Ueditor")
 	beego.Router("/upload", &controllers.UploadController{},"*:UploadImg")
 
+	//beego.InsertFilter("/admin",beego.BeforeRouter,func() {
+	//	//_, ok := ctx.Input.Session("uid").(int)
+	//	//if !ok && ctx.Request.RequestURI != "/login" {
+	//	//	ctx.Redirect(302, "/login")
+	//	//}
+	//})
 	admin :=
 		beego.NewNamespace("/admin",
 			beego.NSRouter("/", &admin.IndexController{}),
 			beego.NSRouter("/success", &admin.SuccessController{}),
+			beego.NSRouter("/login", &admin.LoginController{},"get:Login;post:Login"),
 			beego.NSNamespace("/article",
 				beego.NSRouter("/list", &admin.ArticleController{}, "get:ListArticle"),
 				beego.NSRouter("/add", &admin.ArticleController{}, "get:AddArticle;post:AddArticle"),

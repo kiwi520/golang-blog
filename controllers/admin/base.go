@@ -1,6 +1,9 @@
 package admin
 
-import "github.com/astaxie/beego"
+import (
+	"github.com/astaxie/beego"
+	//"net/http"
+)
 
 /**
  * 文件描述
@@ -8,12 +11,38 @@ import "github.com/astaxie/beego"
  * Create by hu
  */
 
+
+/**
+* login
+ */
+type LoginController struct{
+	beego.Controller
+}
 /**
 *利用结构体嵌套实现继承 Beego controller里的方法
  */
 type BaseController struct{
 	beego.Controller
 }
+
+func(this *LoginController) Login(){
+	this.TplName = "admin/login/login.html"
+	//this.Layout = "admin/layout.html"
+}
+
+
+//func (this *BaseController) Prepare(w http.ResponseWriter, r *http.Request) {
+//	sess := globalSessions.SessionStart(w, r)
+//	defer sess.SessionRelease()
+//	sess_uid := sess.Get("userid")
+//	sess_username := sess.Get("username")
+//	if sess_uid == nil {
+//		this.Ctx.Redirect(302, "/admin/login")
+//		return
+//	}
+//	this.Data["Username"] = sess_username
+//}
+
 
 
 /*
@@ -70,3 +99,5 @@ func (this *BaseController) AjaxReturn(status int, msg string, data interface{})
 	this.ServeJSON()
 	return
 }
+
+

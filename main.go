@@ -6,8 +6,10 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"bloggo/models"
+	"bloggo/controllers"
 	"github.com/cihub/seelog"
 )
+
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 	// set default database
@@ -23,6 +25,9 @@ func init() {
 
 	// create table
 	//orm.RunSyncdb("default", false, true)
+
+	//session start
+	beego.BConfig.WebConfig.Session.SessionOn = true
 
 	logger, err := seelog.LoggerFromConfigAsFile("conf/seelog-dev-main.xml")
 
@@ -43,6 +48,5 @@ func init() {
 }
 
 func main() {
-
 	beego.Run()
 }

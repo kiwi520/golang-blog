@@ -40,7 +40,7 @@ func init() {
 		beego.NewNamespace("/admin",
 			beego.NSRouter("/", &admin.IndexController{}),
 			beego.NSRouter("/success", &admin.SuccessController{}),
-			beego.NSRouter("/login", &admin.LoginController{},"get:Login;post:Login"),
+			beego.NSRouter("/login", &admin.LoginController{},"get:GetLogin;post:PostLogin"),
 			beego.NSNamespace("/article",
 				beego.NSRouter("/list", &admin.ArticleController{}, "get:ListArticle"),
 				beego.NSRouter("/add", &admin.ArticleController{}, "get:AddArticle;post:AddArticle"),

@@ -6,7 +6,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"bloggo/models"
-	"bloggo/controllers"
 	"github.com/cihub/seelog"
 )
 
@@ -21,7 +20,7 @@ func init() {
 	orm.RegisterDataBase("default", "mysql", dbuser+":"+dbpasswd+"@tcp("+dbaddr+":"+dbport+")/"+dbname+"?charset=utf8&loc=Asia%2FShanghai", 30)
 
 	// register model
-	orm.RegisterModel(new(models.Article))
+	orm.RegisterModel(new(models.Article),new(models.User))
 
 	// create table
 	//orm.RunSyncdb("default", false, true)

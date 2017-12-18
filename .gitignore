@@ -1,2 +1,5 @@
 /.idea/
 /log/
+.DS_Store
+conf/dev.conf
+

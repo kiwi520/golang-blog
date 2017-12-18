@@ -2,7 +2,11 @@ package admin
 
 import (
 	"github.com/astaxie/beego"
-	//"net/http"
+	"github.com/astaxie/beego/validation"
+	"bloggo/models"
+	"fmt"
+	"log"
+	"github.com/astaxie/beego/orm"
 )
 
 /**
@@ -25,22 +29,62 @@ type BaseController struct{
 	beego.Controller
 }
 
-func(this *LoginController) Login(){
+func(this *LoginController) GetLogin(){
+
 	this.TplName = "admin/login/login.html"
-	//this.Layout = "admin/layout.html"
+}
+
+func(this *LoginController) PostLogin(){
+		u := models.User{}
+		if err := this.ParseForm(&u); err != nil {
+			//handle error
+		}
+
+		valid := validation.Validation{}
+		b, err := valid.Valid(&u)
+		m := make(map[string]string)
+		if err != nil {
+			// handle error
+		}
+		if !b {
+			for _, err := range valid.Errors {
+				m[err.Key]=err.Message
+				log.Println(err.Key, err.Message)
+			}
+		}
+			fmt.Println(u)
+			o := orm.NewOrm()
+			var user models.User
+			ps := o.QueryTable("user")
+			errss :=ps.Filter("email",u.Email).One(&user)
+			if errss ==nil {
+				sess := this.StartSession()
+				sess.Set("uid",user.Id)
+				sess.Set("email",user.Email)
+				this.TplName = "admin/welcome.html"
+
+				if len(m) <=0 {
+					this.Data["ok"] = "success"
+				}else {
+					this.Data["ok"] =""
+				}
+				this.Data["err"] = m
+				this.TplName = "admin/login/login.html"
+			}
+			//this.Ctx.WriteString("登录程序出错")
 }
 
 
-//func (this *BaseController) Prepare(w http.ResponseWriter, r *http.Request) {
-//	sess := globalSessions.SessionStart(w, r)
-//	defer sess.SessionRelease()
-//	sess_uid := sess.Get("userid")
-//	sess_username := sess.Get("username")
+//func (this *BaseController) Prepare() {
+//	//sess := this.StartSession()
+//	sess_uid :=this.GetSession("uid")
+//	//defer this.CruSession.SessionRelease(w http.ResponseWriter)
+//	//sess_username := sess.Get("username")
 //	if sess_uid == nil {
 //		this.Ctx.Redirect(302, "/admin/login")
 //		return
 //	}
-//	this.Data["Username"] = sess_username
+//	this.Data["Username"] = "ok"
 //}
 
 

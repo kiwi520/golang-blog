@@ -4,7 +4,6 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 	"bloggo/models"
-	"fmt"
 	"log"
 	"github.com/astaxie/beego/orm"
 )
@@ -52,7 +51,6 @@ func(this *LoginController) PostLogin(){
 				log.Println(err.Key, err.Message)
 			}
 		}
-			fmt.Println(u)
 			o := orm.NewOrm()
 			var user models.User
 			ps := o.QueryTable("user")
@@ -69,23 +67,18 @@ func(this *LoginController) PostLogin(){
 					this.Data["ok"] =""
 				}
 				this.Data["err"] = m
-				this.TplName = "admin/login/login.html"
+				this.Ctx.Redirect(302, "/admin/")
 			}
-			//this.Ctx.WriteString("登录程序出错")
 }
 
 
-//func (this *BaseController) Prepare() {
-//	//sess := this.StartSession()
-//	sess_uid :=this.GetSession("uid")
-//	//defer this.CruSession.SessionRelease(w http.ResponseWriter)
-//	//sess_username := sess.Get("username")
-//	if sess_uid == nil {
-//		this.Ctx.Redirect(302, "/admin/login")
-//		return
-//	}
-//	this.Data["Username"] = "ok"
-//}
+func (this *BaseController) Prepare() {
+	sess_uid :=this.GetSession("uid")
+	if sess_uid == nil {
+		this.Ctx.Redirect(302, "/admin/login")
+		return
+	}
+}
 
 
 

@@ -7,7 +7,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	"golang.org/x/crypto/scrypt"
 	"encoding/hex"
-	"fmt"
 )
 
 /**
@@ -39,8 +38,6 @@ func (u *User) Valid(v *validation.Validation) {
 	var user User
 	// 获取 QuerySeter 对象，user 为表名
 	ps := o.QueryTable("user")
-	fmt.Println("dayin")
-	fmt.Println(u)
 	if len(u.Email) <=0 {
 		// 通过 SetError 设置 Name 的错误信息，HasErrors 将会返回 true
 		v.SetError("email", "邮箱不能为空")

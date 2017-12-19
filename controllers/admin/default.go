@@ -67,7 +67,7 @@ func (this *ArticleController) AddArticle() {
 			_, err := o.Insert(art)
 			if err == nil {
 				seelog.Info("文章添加成功")
-				this.Success("提交成功","/admin/list",1)
+				this.Success("提交成功","/admin/article/list",1)
 			}else{
 				panic("文章添加失败:"+err.Error())
 				this.Error("提交失败","",2)

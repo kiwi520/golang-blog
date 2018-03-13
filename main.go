@@ -24,7 +24,6 @@ func init() {
 
 	// create table
 	//orm.RunSyncdb("default", false, true)
-
 	//session start
 	beego.BConfig.WebConfig.Session.SessionOn = true
 
@@ -38,11 +37,12 @@ func init() {
 
 	defer seelog.Flush()
 
-	beego.SetStaticPath("/static","static")
+	//beego.SetStaticPath("/static","static")
 	beego.SetStaticPath("/ueditor","static/ueditor")
 	beego.SetStaticPath("/markdown","static/markdown")
 	beego.SetStaticPath("/editormd","static/editormd")
 	beego.SetStaticPath("/fileinput","static/bootstrap-fileinput")
+	beego.SetStaticPath("/datetimepicker","static/datetimepicker")
 
 }
 

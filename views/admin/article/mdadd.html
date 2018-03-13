@@ -3,6 +3,7 @@
 {{/*<link rel="stylesheet" type="text/css" href="/markdown/css/bootstrap-markdown.min.css">*/}}
 <link rel="stylesheet" type="text/css" href="/markdown/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/fileinput/fileinput.min.css">
+<link rel="stylesheet" type="text/css" href="/datetimepicker/bootstrap-datetimepicker.min.css">
 <ol class="breadcrumb">
     <li><a href="#">后台</a></li>
     <li><a href="#">文章</a></li>
@@ -34,6 +35,14 @@
         <ul class="col-sm-10" id="imgshow">
         </ul>
     </div>
+
+    <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">文章添加时间</label>
+        <div class="col-sm-10">
+            <input type="text" name="times" value="2012-06-15 14:45" readonly class="form_datetime" id="inputEmail3" placeholder="文章添加时间">
+        </div>
+    </div>
+
     <div class="form-group" >
         <label for="textarea1" class="col-sm-2 control-label">文章内容</label>
         <input type="hidden" name="content" id="content-input">
@@ -58,8 +67,13 @@
 <script src="/editormd/editormd.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/fileinput/fileinput.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.6/js/locales/zh.min.js"></script>
+<script src="/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/datetimepicker/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
+
 <script type="text/javascript">
     (function ($) {
+        $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+
         $("#txt_file").fileinput({
             language: "zh",
             allowedFileExtensions: ['png'],

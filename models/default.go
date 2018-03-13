@@ -19,7 +19,7 @@ type Article struct{
 	Title 	string	`form:"title"`
 	Img 	string	`form:"img"`
 	Content string	 `orm:"column(content);type(text);"form:"content"`
-	//CreateTime string	 `orm:"type(datetime)"`
+	Times string	 `orm:"column(times);type(date)"form:"times"`
 	CreateTime time.Time `orm:"column(create_time);type(timestamp);null;auto_now_add"`
 	//Created time.Time `orm:"auto_now_add;type(datetime)"`
 }

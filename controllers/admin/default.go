@@ -10,7 +10,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/cihub/seelog"
 	"strconv"
-	//"fmt"
 )
 
 
